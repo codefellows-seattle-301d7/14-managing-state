@@ -13,6 +13,8 @@
   };
 
   // COMMENT: What does this method do?  What is it's execution path?
+  // This method gets called articleView.index and sets template to the compiled handlebars function, then it sets options to the following call, Article.allAuthors to get the array of authors then it maps this array which populates the compiled handlebars templates. Then it uses jquery to determine whether the author filter has been populated and appends to the DOM if not.
+  // Then it populates the category by checking whether category filters have been populated and if not it maps the array of template data to append to the DOM
   articleView.populateFilters = function() {
     var options,
       template = Handlebars.compile($('#option-template').text());
@@ -38,6 +40,7 @@
   };
 
   // COMMENT: What does this method do?  What is it's execution path?
+  // This method uses query to add a change event handler to the select element in filters. When the event is triggered it gets the filtered option and uses page to route for the filtered query
   articleView.handleFilters = function() {
     $('#filters').one('change', 'select', function() {
       resource = this.id.replace('-filter', '');
@@ -118,6 +121,9 @@
   };
 
   // COMMENT: What does this method do?  What is it's execution path?
+  // This method displays all the jqueried articles then hides all the siblings
+  // Then it removes article children of the id articles, then it calls a forEach on the // parameter passed in and appends then to the DOM the rendered handlebars template.
+  // Then it calls the populateFilters and handleFilters methods. Then it
   articleView.index = function(articles) {
     $('#articles').show().siblings().hide();
 
