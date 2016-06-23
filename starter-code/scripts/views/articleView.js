@@ -13,7 +13,7 @@
   };
 
   // COMMENT: What does this method do?  What is it's execution path?
-  // This method will get unique lists of authors and categories to append to the option tags that are used to filter the home page
+  // This method will get unique lists of authors and categories to append to the select tags that are used to filter the home page
   // Execution path: This function will execute 2 things asynchronously.
   // 1. It will get an array of authors using the Article.allAuthors() method, map that array and return an array of html objects (using Handlebars templating) which will get append into the option tag with id of author-filter.
   // 2. At the same time, it will also get an array of categories using the Article.allCategories() method, map that arrays and apply Handlebars template as it loops through the array. It will verify if each element does not exist in the option tag and append that element, otherwise it will ignore the element.
@@ -44,6 +44,8 @@
   };
 
   // COMMENT: What does this method do?  What is it's execution path?
+  // This method detects if user chooses anything in the dropdown menu, changes both url and filter the page depending on the selection.
+  // Execution path: once a filter option is selected, it will get the id of the select menu (either: 'author-filter' or 'category-filter'), then remove the '-filter' which leaves us with 'author' or 'category' depending on what option was selected. Then it calls the page method to appen the string 'author' or 'category' + '/' + the value of the current selected option value. All each space in option value is replaced by a plus sign.
   articleView.handleFilters = function() {
     $('#filters').one('change', 'select', function() {
       resource = this.id.replace('-filter', '');
@@ -124,6 +126,8 @@
   };
 
   // COMMENT: What does this method do?  What is it's execution path?
+  // This method render the articles depending on what is requested by user (show all, show one, filtered by authors or filtered by category)
+  // Execution path: It uses jQuery to select the section with id of 'articles', show that section and hide other sections. It then remove all the article tags inside the section. After that, it will perform a for each to loop through the 'articles' variable which got passed in as a parameter in the beginning. This 'articles' variable is stored in the context object so articleView.index method can refer to. For each article object that this method loops through, it will pass it to the 'render' function in order to run it through handlebars template. Afterwards, append all the templated handlebars html to section with id of 'articles'. Finally, it will populate filter, and invoke handleFilter method to apply routing accordingly.
   articleView.index = function(articles) {
     $('#articles').show().siblings().hide();
 
