@@ -13,13 +13,19 @@
   };
 
   // COMMENT: What does this method do?  What is it's execution path?
+  // This method will get unique lists of authors and categories to append to the option tags that are used to filter the home page
+  // Execution path: This function will execute 2 things asynchronously.
+  // 1. It will get an array of authors using the Article.allAuthors() method, map that array and return an array of html objects (using Handlebars templating) which will get append into the option tag with id of author-filter.
+  // 2. At the same time, it will also get an array of categories using the Article.allCategories() method, map that arrays and apply Handlebars template as it loops through the array. It will verify if each element does not exist in the option tag and append that element, otherwise it will ignore the element.
   articleView.populateFilters = function() {
     var options,
       template = Handlebars.compile($('#option-template').text());
 
     // Example of using model method with FP, synchronous approach:
     // This method is dependant on info being in the DOM. Only authors of shown articles are loaded.
-    options = Article.allAuthors().map(function(author) { return template({val: author}); });
+    options = Article.allAuthors().map(function(author) {
+      return template({val: author});
+    });
     if ($('#author-filter option').length < 2) { // Prevent duplication
       $('#author-filter').append(options);
     };
