@@ -32,6 +32,8 @@
   };
 
   // COMMENT: What does this method do?  What is it's execution path?
+  // This method uses the name of a category to find and load all articles in a particular category into our current context object.
+  // The execution path: this method is triggered when the user chooses an category name from our drop down menu on the home page. This method first fires the Article.findWhere function, which takes that category name. Article.findWhere locates and loads all of the matching category records and returns those as an array of objects. Article.findWhere then calls the categoryData function which puts our current set of records (articlesInCategory) into the current context object (ctx.articles), which is then used when our next function (articlesController.index) is called.
   articlesController.loadByCategory = function(ctx, next) {
     var categoryData = function(articlesInCategory) {
       ctx.articles = articlesInCategory;
