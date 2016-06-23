@@ -44,6 +44,8 @@
   };
 
   // COMMENT: What does this method do?  What is it's execution path?
+  // This method returns all the articles and passes them into the context object for the controller to use.
+  // The excution path: First the if/else statement will be run. If the Article.all array has anything in it (if it's already been loaded from our data), then we assign that array to our context object and move on to the articlesController.index function. If the Article.all array is empty we call the fetchAll function and pass it our articleData function as the callback.
   articlesController.loadAll = function(ctx, next) {
     var articleData = function(allArticles) {
       ctx.articles = Article.all;
