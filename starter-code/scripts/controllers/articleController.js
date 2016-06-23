@@ -20,6 +20,8 @@
   };
 
   // COMMENT: What does this method do?  What is it's execution path?
+  // This method uses the name of an author to find and load all articles by a particular author into our current context object.
+  // The execution path: this method is triggered when the user chooses an author name from our drop down menu on the home page. This method first fires the Article.findWhere function, which takes that author name (and replaces any spaces in it with a + as declared in the argument passed to the Article.findWhere). Article.findWhere locates and loads all of the matching author records and returns those as an array of objects. Article.findWhere then calls the authorData function which puts our current set of records (articlesByAuthor) into the current context object (ctx.articles), which is then used when our next function (articlesController.index) is called.
   articlesController.loadByAuthor = function(ctx, next) {
     var authorData = function(articlesByAuthor) {
       ctx.articles = articlesByAuthor;
